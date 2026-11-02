@@ -1,0 +1,19 @@
+// Cloudflare Workers 部署配置 · 星河 XINGHE
+// 由 OpenNext for Cloudflare 产出：`.open-next/worker.js`（服务端） + `.open-next/assets`（静态资源）
+// 文档：https://opennext.js.org/cloudflare
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "xinghe-galaxy-parse",
+  "main": ".open-next/worker.js",
+  // nodejs_compat：启用 Node.js API 兼容层（Buffer / node:crypto 等）
+  // global_fetch_strictly_public：worker 内 fetch 始终走公网，不会被解析到内部绑定
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // 静态资源：免费额度内不限请求数（不占用每日 10 万次动态请求额度）
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  }
+  // 可选优化：把 Worker 调度到离上游源站更近的数据中心（免费版可用）
+  // "placement": { "mode": "smart" }
+}
